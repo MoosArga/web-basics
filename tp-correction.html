@@ -31,34 +31,20 @@
                     </select>
                 </div>
 
-                <button class="form-action">Ajouter</button>
+                <button id="add-button" class="form-action" disabled>Ajouter</button>
             </form>
             <table>
                 <thead>
                     <tr>
                         <th scope="col">Jour</th>
                         <th scope="col">Activité</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="activity-table">
-                    <tr>
-                        <td>Lundi</td>
-                        <td>Danse</td>
-                    </tr>
-                    <tr>
-                        <td>Mardi</td>
-                        <td>Tir à l'arc</td>
-                    </tr>
-                    <tr>
-                        <td>Mercredi</td>
-                        <td>Formation</td>
-                    </tr>
-                    <tr>
-                        <td>Jeudi</td>
-                        <td>Tennis</td>
-                    </tr>
+                <tbody id="activity-table" class="activity-table">
                 </tbody>
             </table>
+            <section id="stats"></section>
         </main>
         <footer id="footer">
             <ul id="liens-utiles">
@@ -77,4 +63,103 @@
             </ul>
         </footer>
     </body>
+    
+    <script defer>
+
+        const days = ['Lundi','Mardi','Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+        const addButton = document.querySelector('#add-button');
+        const activityField = document.querySelector('#activite-field');
+        const dayField = document.querySelector('#day-field');
+        const activityTable = document.querySelector('#activity-table');
+
+        function getRowTableValues() {
+            return Array.from(activityTable.querySelectorAll('tr')).map(tr => Array.from(tr.querySelectorAll('td')).map(td => td.innerText));
+        }
+
+        function calculateStats() {
+            const activityPerDay = new Map()
+            getRowTableValues().forEach(tr => {
+                activityPerDay.set(tr[0], (activityPerDay.get(tr[0]) || 0) + 1);
+            });
+            let stats = `<table><thead><tr>`;
+            days.forEach(d => stats += `<th>${d}</th>`)
+            stats += '</tr></thead><tbody><tr>'
+            days.forEach(d => stats += `<td>${activityPerDay.get(d) || 0}</td>`)
+            stats += '</tr></tbody></table>'
+            document.querySelector('#stats').innerHTML = stats;
+        }
+
+        function addNewActivity(day, activity) {
+            // activityTable.innerHTML += `
+            //     <tr>
+            //         <td>${day}</td>
+            //         <td>${activity}</td>
+            //     </tr>
+            // `
+
+            // Création d'une nouvelle ligne pour le tableau (uniquement la structure)
+            const newRow = document.createElement('tr')
+            const activityCell = document.createElement('td')
+            const dayCell = document.createElement('td')
+            const actionCell = document.createElement('td')
+
+            // Affecte les valeurs des champs de saisie dans les cellules du tableau
+            dayCell.innerText = day;
+            activityCell.innerText = activity;
+            actionCell.innerHTML = '<button class="del-btn">Supp.</button>'
+
+            // Ajoute les cellules dans la nouvelle ligne
+            newRow.appendChild(dayCell);
+            newRow.appendChild(activityCell);
+            newRow.appendChild(actionCell);
+
+            // Ajoute la ligne dans le tableau et ajout de la fonction de suppression
+            activityTable.appendChild(newRow)
+            document.querySelector('#activity-table tr:last-child .del-btn').addEventListener('click', function(event) {
+                activityTable.removeChild(this.closest('tr'));
+                calculateStats();
+                saveActivities();
+            });
+        }
+
+        activityField.addEventListener('input', function(event) {
+            const isInputEmpty = !event.target.value; // Si la value est à null, undefined ou chaine de caractère vide renverra vrai (falsy / truthy values)
+            addButton.disabled = isInputEmpty;
+        });
+
+        addButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Bloquer le comportement par défaut de soumission du formulaire (rechargement de la page)
+            
+            addNewActivity(dayField.value, activityField.value);
+
+            // Remettre le système dans un état cohérent
+            activityField.value = '';
+            addButton.disabled = true;
+            calculateStats();
+            saveActivities();
+        });
+
+        const elements = localStorage.getItem('activities');
+        if(elements) {
+            const elementsJson = JSON.parse(elements);
+            elementsJson.forEach(el => {
+                addNewActivity(el.day, el.activity)
+            });
+            calculateStats();
+        }
+
+        function saveActivities() {
+            const elements = []
+            getRowTableValues().forEach(tr => {
+                elements.push({ day: tr[0], activity: tr[1] })
+            })
+            localStorage.setItem('activities', JSON.stringify(elements));
+        }
+
+
+    </script>
+
+
+
 </html>
