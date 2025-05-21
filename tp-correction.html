@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ma page de TP corrigé</title>
+        <link rel="stylesheet" href="./styles.css">
+    </head>
+    <body>
+        <header id="header">
+            <img id="logo" src="https://img.freepik.com/photos-gratuite/calendrier-icone-3d-calendrier-date-liste-controle_107791-15691.jpg?semt=ais_hybrid&w=740" alt="Image d'un agenda"/>
+            <h1 id="main-title">Mon agenda</h1>
+        </header>
+        <main>
+            <h2 class="title-primary">Ma semaine</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, repudiandae.</p>
+            <form class="form">
+                <div class="form-field">
+                    <label class="form-field-label" for="activite-field">Activité</label>
+                    <input type="text" id="activite-field" />
+                </div>
+
+                <div class="form-field">
+                    <label class="form-field-label" for="day-field">Jour de la semaine</label>
+                    <select id="day-field">
+                        <option value="Lundi">Lundi</option>
+                        <option value="Mardi">Mardi</option>
+                        <option value="Mercredi">Mercredi</option>
+                        <option value="Jeudi">Jeudi</option>
+                        <option value="Vendredi">Vendredi</option>
+                        <option value="Samedi">Samedi</option>
+                        <option value="Dimanche">Dimanche</option>
+                    </select>
+                </div>
+
+                <button class="form-action">Ajouter</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Jour</th>
+                        <th scope="col">Activité</th>
+                    </tr>
+                </thead>
+                <tbody class="activity-table">
+                    <tr>
+                        <td>Lundi</td>
+                        <td>Danse</td>
+                    </tr>
+                    <tr>
+                        <td>Mardi</td>
+                        <td>Tir à l'arc</td>
+                    </tr>
+                    <tr>
+                        <td>Mercredi</td>
+                        <td>Formation</td>
+                    </tr>
+                    <tr>
+                        <td>Jeudi</td>
+                        <td>Tennis</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <footer id="footer">
+            <ul id="liens-utiles">
+                <li>
+                    <a href="https://google.com" target="_blank">Moteur de recherche</a>
+                </li>
+                <li>
+                    <a href="https://developer.mozilla.org/fr/docs/Web/HTML" target="_blank">Référentiel HTML</a>
+                </li>
+                <li>
+                    <a href="https://caniuse.com/" target="_blank">Can I Use</a>
+                </li>
+                <li>
+                    <a href="https://docs.emmet.io/cheat-sheet/" target="_blank">Emmet Cheat Sheet</a>
+                </li>
+            </ul>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Calibri';
+    margin: 0;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid rgba(204, 204, 204, 0.4);
+    padding: 5px 10px;
+}
+
+th {
+    font-weight: bold;
+}
+
+main > * + * {
+    margin-top: 10px;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+}
+
+#header > * + * {
+    margin-left: 30px;
+}
+
+#logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+#main-title {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+}
+
+.title-primary {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+/* Formulaire */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    border: 5px solid #CCCCCC;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.form > * + * {
+    margin-top: 10px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form-field > * + * {
+    margin-left: 10px;
+}
+
+.form-field-label {
+    width: 200px;
+    text-align: right;
+}
+
+.form-action {
+    width: 200px;
+    margin-left: auto;
+}
+
+#footer {
+    background-color: black;
+    padding: 20px;
+}
+
+#liens-utiles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+#liens-utiles * {
+    color: white;
+}
+
+.activity-table > *:nth-child(2n) {
+    background-color: rgba(127, 255, 212, 0.4);
+}
